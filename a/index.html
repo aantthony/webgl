@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+  
+  <script id="shader-fs" type="x-shader/x-fragment">
+      precision mediump float;
+      varying vec4 color;
+      void main(void) {
+        gl_FragColor = color;
+          //vec2 d = gl_PointCoord - 0.5;
+          //float dot_p = dot(d,d);
+          //gl_FragColor = vec4(color.rgb, 0.1 * (1.0 - 2.0 * dot_p));
+      }
+  </script>
+
+  <script id="shader-vs" type="x-shader/x-vertex">
+      attribute vec3 aVertexPosition;
+      varying vec4 color;
+      uniform float t;
+      uniform float aspect;
+      const vec3 a = vec3(0.0, 1.0, 0.0);
+      const vec3 b = vec3(0.1, 0.0, 1.0);
+      void main(void) {
+          gl_Position = vec4(aVertexPosition.x/aspect, aVertexPosition.y, 0.0, 1.0);
+          float theta = t - aVertexPosition.z;
+        	//gl_PointSize = 5.0;
+          color = vec4(a * cos(theta) + b * sin(theta) , 0.1);
+      }
+  </script>
+  <canvas id="canvas" width="1024" height="512"></canvas>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
